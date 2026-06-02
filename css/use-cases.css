@@ -275,21 +275,6 @@ h1 {
   font-weight: 600;
 }
 
-.bar {
-  height: 7px;
-  overflow: hidden;
-  border-radius: 999px;
-  background: rgba(41, 45, 203, 0.1);
-}
-
-.bar span {
-  display: block;
-  width: var(--w);
-  height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(90deg, var(--brand), var(--brand-dark));
-}
-
 .section-divider {
   width: min(1180px, calc(100% - 40px));
   height: 1px;
