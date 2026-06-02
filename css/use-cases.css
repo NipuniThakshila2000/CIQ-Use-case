@@ -367,6 +367,85 @@ h2 {
   height: auto;
 }
 
+.section-heading {
+  max-width: 850px;
+  margin-bottom: 34px;
+}
+
+.image-story {
+  padding-top: 76px;
+}
+
+.outcome-story {
+  padding-top: 0;
+}
+
+.image-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 18px;
+}
+
+.image-card {
+  position: relative;
+  min-height: 290px;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: var(--shadow);
+}
+
+.image-card.large {
+  grid-row: span 2;
+  min-height: 600px;
+}
+
+.image-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-card::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(180deg, transparent 48%, rgba(10, 11, 30, 0.72));
+}
+
+.sad-mood .image-card::before,
+.happy-mood .image-card::before {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  content: "";
+}
+
+.sad-mood .image-card::before {
+  background: rgba(17, 19, 54, 0.12);
+}
+
+.happy-mood .image-card::before {
+  background: rgba(41, 45, 203, 0.04);
+}
+
+.image-card figcaption {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  left: 18px;
+  z-index: 2;
+  color: #ffffff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.15rem;
+  line-height: 1.22;
+  text-transform: uppercase;
+}
+
 .chip {
   padding: 9px 12px;
   border: 1px solid rgba(41, 45, 203, 0.22);
@@ -534,6 +613,15 @@ h2 {
 
   .metric-card.wide {
     grid-column: auto;
+  }
+
+  .image-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .image-card,
+  .image-card.large {
+    min-height: 310px;
   }
 
   .feature,
