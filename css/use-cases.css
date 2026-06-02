@@ -364,6 +364,24 @@ h2 {
   margin-top: 28px;
 }
 
+.video-section {
+  padding-top: 0;
+}
+
+.video-frame {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 32px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: var(--shadow);
+}
+
+.video-frame video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .chip {
   padding: 9px 12px;
   border: 1px solid rgba(41, 45, 203, 0.22);
