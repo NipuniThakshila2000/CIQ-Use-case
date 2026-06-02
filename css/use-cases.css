@@ -60,6 +60,10 @@ main {
   padding: 92px 0;
 }
 
+.section:last-child {
+  padding-bottom: 0;
+}
+
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 1.04fr) minmax(360px, 0.86fr);
