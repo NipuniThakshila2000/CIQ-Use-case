@@ -65,7 +65,6 @@ main {
   grid-template-columns: minmax(0, 1.04fr) minmax(360px, 0.86fr);
   gap: 58px;
   align-items: center;
-  min-height: 100vh;
   padding-top: 70px;
 }
 
