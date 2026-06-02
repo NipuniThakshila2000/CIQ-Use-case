@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Use Cases | Conscience IQ</title>
+    <meta
+      name="description"
+      content="Conscience IQ use cases for applied human intelligence, starting with healthcare physician burnout visibility before crisis."
+    />
+    <style>
+      :root {
+        --ink: #111336;
+        --charcoal: #1a1c4f;
+        --paper: #ffffff;
+        --ivory: #f5f7ff;
+        --stone: #5f6478;
+        --line: rgba(41, 45, 203, 0.16);
+        --line-dark: rgba(255, 255, 255, 0.2);
+        --brand: #292dcb;
+        --brand-dark: #171a8f;
+        --brand-soft: rgba(41, 45, 203, 0.1);
+        --brand-glow: rgba(41, 45, 203, 0.18);
+        --shadow: 0 24px 70px rgba(41, 45, 203, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 12% 0%, rgba(41, 45, 203, 0.16), transparent 30rem),
+          radial-gradient(circle at 88% 4%, rgba(41, 45, 203, 0.09), transparent 28rem),
+          linear-gradient(180deg, var(--paper), var(--ivory) 48%, var(--paper));
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      body::before {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        content: "";
+        background-image:
+          linear-gradient(rgba(41, 45, 203, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(41, 45, 203, 0.04) 1px, transparent 1px);
+        background-size: 72px 72px;
+        mask-image: linear-gradient(to bottom, black, transparent 72%);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-bottom: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(16px);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: min(1180px, calc(100% - 40px));
+        min-height: 78px;
+        margin: 0 auto;
+      }
+
+      .brand {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1.08rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .brand span {
+        color: var(--brand);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .nav-links a {
+        padding: 10px 12px;
+        border-radius: 999px;
+        color: var(--stone);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        transition:
+          color 180ms ease,
+          background 180ms ease;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--ink);
+        background: var(--brand-soft);
+      }
+
+      main {
+        overflow: hidden;
+      }
+
+      .section {
+        width: min(1180px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: 92px 0;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.04fr) minmax(360px, 0.86fr);
+        gap: 58px;
+        align-items: center;
+        min-height: calc(100vh - 78px);
+        padding-top: 70px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        gap: 12px;
+        align-items: center;
+        margin: 0 0 20px;
+        color: var(--brand);
+        font-size: 0.76rem;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        width: 38px;
+        height: 1px;
+        content: "";
+        background: linear-gradient(90deg, var(--brand), transparent);
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1,
+      h2 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-weight: 500;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 760px;
+        margin-bottom: 22px;
+        font-size: clamp(3.8rem, 8.2vw, 8.5rem);
+        line-height: 0.88;
+        letter-spacing: -0.055em;
+      }
+
+      .hero-title {
+        max-width: 720px;
+        margin-bottom: 24px;
+        font-family: Georgia, "Times New Roman", serif;
+        color: var(--charcoal);
+        font-size: clamp(1.7rem, 3vw, 3.1rem);
+        line-height: 1.03;
+        letter-spacing: -0.035em;
+      }
+
+      .lead,
+      .copy-block,
+      .feature p,
+      .text-card {
+        color: var(--stone);
+        font-size: 1rem;
+        line-height: 1.78;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-top: 34px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 21px;
+        border: 1px solid transparent;
+        border-radius: 999px;
+        font-size: 0.83rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        transition:
+          transform 180ms ease,
+          box-shadow 180ms ease,
+          background 180ms ease;
+      }
+
+      .button.primary {
+        color: #ffffff;
+        background: var(--brand);
+        box-shadow: 0 16px 42px var(--brand-glow);
+      }
+
+      .button.secondary {
+        color: var(--ink);
+        border-color: var(--line);
+        background: rgba(255, 255, 255, 0.78);
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 18px 48px rgba(17, 17, 17, 0.18);
+      }
+
+      .dashboard,
+      .feature,
+      .product-panel,
+      .partnership,
+      .final-cta {
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.82);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(18px);
+      }
+
+      .dashboard {
+        position: relative;
+        padding: 22px;
+        border-radius: 30px;
+      }
+
+      .dashboard::before {
+        position: absolute;
+        inset: -1px;
+        z-index: -1;
+        content: "";
+        border-radius: inherit;
+        background: linear-gradient(140deg, rgba(41, 45, 203, 0.26), transparent 54%);
+      }
+
+      .panel-top {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 12px 22px;
+        color: var(--stone);
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .signal {
+        display: inline-flex;
+        gap: 5px;
+        align-items: end;
+      }
+
+      .signal span {
+        width: 5px;
+        border-radius: 999px;
+        background: var(--brand);
+      }
+
+      .signal span:nth-child(1) {
+        height: 9px;
+        opacity: 0.45;
+      }
+
+      .signal span:nth-child(2) {
+        height: 15px;
+        opacity: 0.72;
+      }
+
+      .signal span:nth-child(3) {
+        height: 23px;
+      }
+
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      .metric-card,
+      .mini-card,
+      .workflow-item {
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.74);
+      }
+
+      .metric-card {
+        min-height: 124px;
+        padding: 18px;
+        border-radius: 22px;
+      }
+
+      .metric-card.wide {
+        grid-column: 1 / -1;
+      }
+
+      .metric-card p {
+        margin-bottom: 18px;
+        color: var(--stone);
+        font-size: 0.84rem;
+      }
+
+      .metric-card strong {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--ink);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1.12rem;
+        font-weight: 600;
+      }
+
+      .bar {
+        height: 7px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(41, 45, 203, 0.1);
+      }
+
+      .bar span {
+        display: block;
+        width: var(--w);
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--brand), var(--brand-dark));
+      }
+
+      .section-divider {
+        width: min(1180px, calc(100% - 40px));
+        height: 1px;
+        margin: 0 auto;
+        background: linear-gradient(90deg, transparent, rgba(41, 45, 203, 0.34), transparent);
+      }
+
+      .split,
+      .healthcare-detail {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 430px;
+        gap: 58px;
+        align-items: start;
+      }
+
+      h2 {
+        max-width: 780px;
+        margin-bottom: 24px;
+        font-size: clamp(2.1rem, 4.2vw, 4.4rem);
+        line-height: 0.96;
+        letter-spacing: -0.045em;
+      }
+
+      .copy-block {
+        display: grid;
+        gap: 18px;
+      }
+
+      .metric-stack {
+        display: grid;
+        gap: 12px;
+      }
+
+      .mini-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 18px;
+        border-radius: 18px;
+        transition:
+          transform 180ms ease,
+          border-color 180ms ease,
+          background 180ms ease;
+      }
+
+      .mini-card:hover {
+        transform: translateX(-4px);
+        border-color: rgba(41, 45, 203, 0.34);
+        background: rgba(255, 255, 255, 0.82);
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--brand);
+        box-shadow: 0 0 22px var(--brand-glow);
+      }
+
+      .feature {
+        padding: 38px;
+        border-radius: 32px;
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(245, 247, 255, 0.82)),
+          radial-gradient(circle at 10% 8%, rgba(41, 45, 203, 0.1), transparent 22rem);
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 28px;
+      }
+
+      .chip {
+        padding: 9px 12px;
+        border: 1px solid rgba(41, 45, 203, 0.22);
+        border-radius: 999px;
+        color: var(--ink);
+        background: var(--brand-soft);
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .text-column {
+        display: grid;
+        gap: 18px;
+      }
+
+      .text-card {
+        padding: 22px;
+        border-left: 2px solid rgba(41, 45, 203, 0.74);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.76);
+      }
+
+      .product-panel {
+        position: sticky;
+        top: 108px;
+        padding: 24px;
+        border-radius: 28px;
+      }
+
+      .product-panel h3 {
+        margin-bottom: 18px;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1.38rem;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      .workflow {
+        display: grid;
+        gap: 12px;
+      }
+
+      .workflow-item {
+        display: grid;
+        grid-template-columns: 38px 1fr;
+        gap: 12px;
+        align-items: center;
+        padding: 14px;
+        border-radius: 16px;
+      }
+
+      .icon {
+        display: grid;
+        width: 38px;
+        height: 38px;
+        place-items: center;
+        border-radius: 12px;
+        color: #ffffff;
+        background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+        font-size: 0.76rem;
+        font-weight: 900;
+      }
+
+      .workflow-item span {
+        color: var(--stone);
+        font-size: 0.84rem;
+      }
+
+      .partnership {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 34px;
+        align-items: center;
+        padding: 42px;
+        border-radius: 34px;
+      }
+
+      .secure-mark {
+        display: grid;
+        min-height: 240px;
+        place-items: center;
+        border: 1px solid rgba(41, 45, 203, 0.24);
+        border-radius: 28px;
+        background:
+          radial-gradient(circle, rgba(41, 45, 203, 0.16), transparent 58%),
+          rgba(255, 255, 255, 0.56);
+      }
+
+      .secure-mark div {
+        width: min(230px, 70%);
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.84);
+      }
+
+      .secure-mark strong {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--brand);
+        font-family: Georgia, "Times New Roman", serif;
+        text-transform: uppercase;
+      }
+
+      .final-cta {
+        padding: 74px 36px;
+        border-radius: 36px;
+        text-align: center;
+        background:
+          radial-gradient(circle at 50% 0%, rgba(41, 45, 203, 0.14), transparent 30rem),
+          rgba(255, 255, 255, 0.84);
+      }
+
+      .final-cta p {
+        max-width: 720px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .final-cta .actions {
+        justify-content: center;
+      }
+
+      @media (max-width: 940px) {
+        .hero,
+        .split,
+        .healthcare-detail,
+        .partnership {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          min-height: auto;
+        }
+
+        .product-panel {
+          position: static;
+        }
+      }
+
+      @media (max-width: 700px) {
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 14px;
+          padding: 18px 0;
+        }
+
+        .nav-links {
+          width: 100%;
+          overflow-x: auto;
+          padding-bottom: 4px;
+        }
+
+        .section {
+          width: min(100% - 28px, 1180px);
+          padding: 66px 0;
+        }
+
+        .hero {
+          padding-top: 48px;
+        }
+
+        .dashboard-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .metric-card.wide {
+          grid-column: auto;
+        }
+
+        .feature,
+        .partnership,
+        .final-cta {
+          padding: 24px;
+          border-radius: 24px;
+        }
+
+        .actions {
+          flex-direction: column;
+        }
+
+        .button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="https://www.conscienceiq.com/">Conscience <span>IQ</span></a>
+        <div class="nav-links">
+          <a href="https://www.conscienceiq.com/">Home</a>
+          <a class="active" href="/use-cases">Use Cases</a>
+          <a href="https://www.conscienceiq.com/questionnaire">Questionnaire</a>
+          <a href="https://www.conscienceiq.com/research-proposal">Research Proposal</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="section hero" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Use Cases</p>
+          <h1 id="page-title">Use Cases</h1>
+          <p class="hero-title">Where Conscience IQ Becomes Operational</p>
+          <p class="lead">
+            Conscience IQ turns ethical awareness, burnout signals, cognitive load, and decision readiness
+            into practical intelligence for healthcare, strategic simulation, and organizational readiness.
+          </p>
+          <div class="actions">
+            <a class="button primary" href="#healthcare">Explore Healthcare Use Case</a>
+          </div>
+        </div>
+
+        <aside class="dashboard" aria-label="Conceptual CIQ intelligence dashboard">
+          <div class="panel-top">
+            <span>Human Intelligence Layer</span>
+            <span class="signal" aria-hidden="true"><span></span><span></span><span></span></span>
+          </div>
+          <div class="dashboard-grid">
+            <div class="metric-card">
+              <strong>Burnout Risk</strong>
+              <p>Early strain visibility</p>
+              <div class="bar"><span style="--w: 68%"></span></div>
+            </div>
+            <div class="metric-card">
+              <strong>Cognitive Load</strong>
+              <p>Decision pressure context</p>
+              <div class="bar"><span style="--w: 58%"></span></div>
+            </div>
+            <div class="metric-card">
+              <strong>Emotional Strain</strong>
+              <p>Recovery and resilience signals</p>
+              <div class="bar"><span style="--w: 52%"></span></div>
+            </div>
+            <div class="metric-card">
+              <strong>Performance Capacity</strong>
+              <p>Readiness under complexity</p>
+              <div class="bar"><span style="--w: 73%"></span></div>
+            </div>
+            <div class="metric-card wide">
+              <strong>Single Source of Truth</strong>
+              <p>Verified assessment history, recommendations, and longitudinal visibility.</p>
+              <div class="bar"><span style="--w: 86%"></span></div>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <section class="section split" aria-labelledby="measures-title">
+        <div>
+          <p class="eyebrow">What CIQ Measures</p>
+          <h2 id="measures-title">From Human Strain to Decision-Grade Insight</h2>
+          <div class="copy-block">
+            <p>
+              Most systems measure data, workflows, productivity, and outcomes. CIQ measures the human
+              condition behind them.
+            </p>
+            <p>
+              It translates AI-led conversation, structured self-report, and biometric indicators into usable
+              insight on burnout risk, cognitive load, motivation, pressure response, emotional strain, and
+              performance capacity.
+            </p>
+            <p>
+              CIQ is not simply a wellness tool. It is a human-intelligence layer designed for high-pressure
+              environments where fatigue, ambiguity, emotional strain, and decision complexity can affect
+              performance.
+            </p>
+          </div>
+        </div>
+        <div class="metric-stack" aria-label="CIQ measurement areas">
+          <div class="mini-card"><span>Burnout Risk</span><span class="dot"></span></div>
+          <div class="mini-card"><span>Cognitive Load</span><span class="dot"></span></div>
+          <div class="mini-card"><span>Motivation</span><span class="dot"></span></div>
+          <div class="mini-card"><span>Pressure Response</span><span class="dot"></span></div>
+          <div class="mini-card"><span>Emotional Strain</span><span class="dot"></span></div>
+          <div class="mini-card"><span>Performance Capacity</span><span class="dot"></span></div>
+        </div>
+      </section>
+
+      <section class="section" id="healthcare" aria-labelledby="healthcare-title">
+        <article class="feature">
+          <p class="eyebrow">Use Case One — Healthcare Physician Burnout</p>
+          <h2 id="healthcare-title">CIQ for Healthcare: Physician Burnout Visibility Before Crisis</h2>
+          <p>
+            In partnership with Mithra by ShelterZoom, CIQ brings trusted human-intelligence infrastructure to
+            physician burnout assessment. The system combines AI-led conversation, burnout-informed scoring,
+            biometric indicators, and a Single Source of Truth layer to help healthcare organizations detect
+            rising strain before it becomes crisis-stage burnout.
+          </p>
+          <div class="chips" aria-label="Healthcare use case capabilities">
+            <span class="chip">AI-Led Conversation</span>
+            <span class="chip">Burnout-Informed Scoring</span>
+            <span class="chip">Biometric Indicators</span>
+            <span class="chip">Single Source of Truth</span>
+            <span class="chip">Mithra by ShelterZoom</span>
+          </div>
+        </article>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <section class="section healthcare-detail" aria-labelledby="workflow-title">
+        <div>
+          <p class="eyebrow">Healthcare Intelligence Workflow</p>
+          <h2 id="workflow-title">Protecting the People Delivering Care</h2>
+          <div class="text-column">
+            <p class="text-card">
+              Healthcare systems are under increasing pressure, and physicians are often carrying the
+              emotional, cognitive, and operational weight of that pressure. Long hours, documentation burden,
+              patient demand, emotional intensity, moral strain, and institutional fatigue can slowly reduce a
+              clinician's ability to recover, focus, empathize, and make clear decisions.
+            </p>
+            <p class="text-card">CIQ gives healthcare organizations a structured way to see these patterns earlier.</p>
+            <p class="text-card">
+              Through a human-like AI assessment agent, physicians can engage in a private guided conversation
+              that draws from established burnout dimensions, including exhaustion, emotional distance,
+              cognitive strain, physical fatigue, and reduced professional satisfaction. This is supported by
+              biometric indicators such as pupil dilation, blink rate, head tilt, response latency, heart rate
+              variability, heart rate, eye movement, and vocal prosody.
+            </p>
+            <p class="text-card">
+              For the Healthcare use case, CIQ is partnering with Mithra by ShelterZoom to create a trusted
+              Single Source of Truth for physician burnout assessment. While CIQ measures burnout risk,
+              cognitive load, emotional strain, and biometric indicators, Mithra helps ensure that the
+              underlying records, assessment outputs, recommendation history, and decision-support data remain
+              verified, traceable, and consistent across the system.
+            </p>
+            <p class="text-card">
+              Together, CIQ and Mithra create a healthcare intelligence workflow where sensitive physician
+              readiness data is not fragmented across disconnected tools. Instead, the organization can rely on
+              one trusted source of truth for assessment history, AI-supported recommendations, biometric
+              summaries, and longitudinal burnout visibility.
+            </p>
+            <p class="text-card">
+              CIQ does not replace clinical diagnosis or medical judgment. It provides a decision-support layer
+              that helps protect the people delivering care.
+            </p>
+          </div>
+        </div>
+
+        <aside class="product-panel" aria-label="Healthcare product mockup">
+          <h3>Healthcare Readiness Record</h3>
+          <div class="workflow">
+            <div class="workflow-item">
+              <div class="icon">01</div>
+              <div><strong>AI Assessment Agent</strong><br /><span>Private guided conversation</span></div>
+            </div>
+            <div class="workflow-item">
+              <div class="icon">02</div>
+              <div><strong>Burnout Visibility</strong><br /><span>Longitudinal strain patterning</span></div>
+            </div>
+            <div class="workflow-item">
+              <div class="icon">03</div>
+              <div><strong>Biometric Summary</strong><br /><span>Consented human signal indicators</span></div>
+            </div>
+            <div class="workflow-item">
+              <div class="icon">04</div>
+              <div><strong>Recommendation History</strong><br /><span>Traceable decision-support context</span></div>
+            </div>
+            <div class="workflow-item">
+              <div class="icon">05</div>
+              <div><strong>Mithra Single Source of Truth</strong><br /><span>Verified data continuity</span></div>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="section" aria-labelledby="mithra-title">
+        <article class="partnership">
+          <div class="secure-mark" aria-label="Verified record visual">
+            <div>
+              <strong>Verified Record Layer</strong>
+              <span>Mithra by ShelterZoom</span>
+            </div>
+          </div>
+          <div>
+            <p class="eyebrow">Partnership Highlight</p>
+            <h2 id="mithra-title">Trusted Single Source of Truth with Mithra by ShelterZoom</h2>
+            <p class="lead">
+              For the Healthcare use case, Mithra by ShelterZoom supports CIQ by helping create a trusted
+              Single Source of Truth across physician assessment data, AI-generated insights, recommendation
+              history, biometric summaries, and decision-support records.
+            </p>
+          </div>
+        </article>
+      </section>
+
+      <section class="section" aria-labelledby="cta-title">
+        <div class="final-cta">
+          <p class="eyebrow">Operational Human Intelligence</p>
+          <h2 id="cta-title">See Human Strain Before It Becomes System Failure</h2>
+          <p class="lead">
+            CIQ helps organizations identify rising burnout risk, cognitive overload, emotional strain, and
+            readiness gaps before they become crisis-stage problems.
+          </p>
+          <div class="actions">
+            <a class="button primary" href="https://www.conscienceiq.com/contact">Request a Walkthrough</a>
+            <a class="button secondary" href="https://www.conscienceiq.com/questionnaire">Explore the Questionnaire</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+  </body>
+</html>
