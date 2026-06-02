@@ -106,11 +106,11 @@ h2 {
 }
 
 h1 {
-  max-width: 760px;
+  max-width: 640px;
   margin-bottom: 22px;
-  font-size: clamp(3.8rem, 8.2vw, 8.5rem);
+  font-size: clamp(3.6rem, 6.2vw, 6rem);
   line-height: 0.88;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.045em;
 }
 
 .hero-title {
