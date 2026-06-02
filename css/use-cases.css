@@ -533,12 +533,20 @@ h2 {
 }
 
 .final-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 74px 36px;
   border-radius: 36px;
   text-align: center;
   background:
     radial-gradient(circle at 50% 0%, rgba(41, 45, 203, 0.14), transparent 30rem),
     rgba(255, 255, 255, 0.84);
+}
+
+.final-cta h2 {
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .final-cta p {
