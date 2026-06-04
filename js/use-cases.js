@@ -49,6 +49,15 @@ function setupAnchorLinks() {
       }
 
       event.preventDefault();
+      window.parent.postMessage(
+        {
+          source: "ciq-use-case",
+          type: "anchor",
+          target: link.getAttribute("href").slice(1),
+          top: Math.round(target.getBoundingClientRect().top + window.scrollY),
+        },
+        "*",
+      );
       target.scrollIntoView({ behavior: "smooth", block: "start" });
       window.history.pushState(null, "", link.getAttribute("href"));
     });
