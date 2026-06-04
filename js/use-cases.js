@@ -32,6 +32,29 @@ function handleScroll() {
   setActiveNavLink();
 }
 
+function setupAnchorLinks() {
+  const anchorLinks = document.querySelectorAll("a[href^='#']");
+
+  anchorLinks.forEach((link) => {
+    if (link.dataset.anchorBound === "true") {
+      return;
+    }
+
+    link.dataset.anchorBound = "true";
+    link.addEventListener("click", (event) => {
+      const target = document.querySelector(link.getAttribute("href"));
+
+      if (!target) {
+        return;
+      }
+
+      event.preventDefault();
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.history.pushState(null, "", link.getAttribute("href"));
+    });
+  });
+}
+
 function loadVideo(video) {
   if (!video || video.dataset.loaded === "true") {
     return;
@@ -88,9 +111,11 @@ function setupLazyVideos() {
 window.addEventListener("scroll", handleScroll, { passive: true });
 window.addEventListener("load", () => {
   handleScroll();
+  setupAnchorLinks();
   setupLazyVideos();
 });
 handleScroll();
+setupAnchorLinks();
 setupLazyVideos();
 
 function getDocumentHeight() {
