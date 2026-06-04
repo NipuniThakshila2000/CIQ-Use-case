@@ -35,3 +35,40 @@ function handleScroll() {
 window.addEventListener("scroll", handleScroll, { passive: true });
 window.addEventListener("load", handleScroll);
 handleScroll();
+
+function getDocumentHeight() {
+  return Math.ceil(
+    Math.max(
+      document.body.scrollHeight,
+      document.body.offsetHeight,
+      document.documentElement.clientHeight,
+      document.documentElement.scrollHeight,
+      document.documentElement.offsetHeight,
+    ),
+  );
+}
+
+function postIframeHeight() {
+  if (window.parent === window) {
+    return;
+  }
+
+  window.parent.postMessage(
+    {
+      source: "ciq-use-case",
+      type: "resize",
+      height: getDocumentHeight(),
+    },
+    "*",
+  );
+}
+
+window.addEventListener("load", postIframeHeight);
+window.addEventListener("resize", postIframeHeight);
+
+if ("ResizeObserver" in window) {
+  const resizeObserver = new ResizeObserver(postIframeHeight);
+  resizeObserver.observe(document.body);
+}
+
+postIframeHeight();
