@@ -118,7 +118,19 @@ function setupLazyVideos() {
 }
 
 function setupPressReadMore() {
+  const moreItems = document.querySelectorAll(".press-more");
   const lessButtons = document.querySelectorAll(".press-less");
+
+  moreItems.forEach((item) => {
+    if (item.dataset.pressMoreBound === "true") {
+      return;
+    }
+
+    item.dataset.pressMoreBound = "true";
+    item.addEventListener("toggle", () => {
+      window.requestAnimationFrame(postIframeHeight);
+    });
+  });
 
   lessButtons.forEach((button) => {
     if (button.dataset.pressLessBound === "true") {
@@ -134,118 +146,8 @@ function setupPressReadMore() {
       }
 
       details.open = false;
-      details.scrollIntoView({ behavior: "smooth", block: "center" });
-      postIframeHeight();
+      window.requestAnimationFrame(postIframeHeight);
     });
-  });
-}
-
-function collapseOpenPressItems() {
-  const openItems = document.querySelectorAll(".press-more[open]");
-
-  if (!openItems.length) {
-    return;
-  }
-
-  openItems.forEach((item) => {
-    item.open = false;
-  });
-
-  postIframeHeight();
-}
-
-function collapsePressItemsAfterParentScroll(iframeViewportTop, parentViewportHeight) {
-  const pressSection = document.querySelector(".press-section");
-
-  if (!pressSection || !Number.isFinite(iframeViewportTop) || !Number.isFinite(parentViewportHeight)) {
-    return;
-  }
-
-  const nextContent = document.querySelector(".press-section + .section-divider + .image-story");
-
-  if (nextContent && iframeViewportTop >= nextContent.offsetTop - 120) {
-    collapseOpenPressItems();
-    return;
-  }
-
-  const sectionBottom = pressSection.offsetTop + pressSection.offsetHeight;
-  if (iframeViewportTop > sectionBottom - 120) {
-    collapseOpenPressItems();
-  }
-}
-
-function setupPressAutoCollapse() {
-  const pressSection = document.querySelector(".press-section");
-
-  if (!pressSection || pressSection.dataset.autoCollapseBound === "true") {
-    return;
-  }
-
-  pressSection.dataset.autoCollapseBound = "true";
-
-  let isTicking = false;
-  window.addEventListener(
-    "scroll",
-    () => {
-      if (isTicking) {
-        return;
-      }
-
-      isTicking = true;
-      window.requestAnimationFrame(() => {
-        isTicking = false;
-
-        const bounds = pressSection.getBoundingClientRect();
-        if (bounds.bottom <= 120) {
-          collapseOpenPressItems();
-        }
-      });
-    },
-    { passive: true },
-  );
-
-  window.addEventListener(
-    "wheel",
-    (event) => {
-      if (event.deltaY <= 0 || event.target.closest(".press-card-event")) {
-        return;
-      }
-
-      collapseOpenPressItems();
-    },
-    { passive: true },
-  );
-
-  let touchStartY = null;
-  window.addEventListener(
-    "touchstart",
-    (event) => {
-      touchStartY = event.touches[0]?.clientY ?? null;
-    },
-    { passive: true },
-  );
-
-  window.addEventListener(
-    "touchmove",
-    (event) => {
-      if (touchStartY === null || event.target.closest(".press-card-event")) {
-        return;
-      }
-
-      const currentY = event.touches[0]?.clientY ?? touchStartY;
-      if (touchStartY - currentY > 18) {
-        collapseOpenPressItems();
-      }
-    },
-    { passive: true },
-  );
-
-  window.addEventListener("message", (event) => {
-    if (!event.data || event.data.source !== "ciq-wix-parent" || event.data.type !== "viewport") {
-      return;
-    }
-
-    collapsePressItemsAfterParentScroll(event.data.iframeViewportTop, event.data.parentViewportHeight);
   });
 }
 
@@ -255,13 +157,11 @@ window.addEventListener("load", () => {
   setupAnchorLinks();
   setupLazyVideos();
   setupPressReadMore();
-  setupPressAutoCollapse();
 });
 handleScroll();
 setupAnchorLinks();
 setupLazyVideos();
 setupPressReadMore();
-setupPressAutoCollapse();
 
 function getDocumentHeight() {
   return Math.ceil(
