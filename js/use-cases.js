@@ -154,6 +154,19 @@ function collapseOpenPressItems() {
   postIframeHeight();
 }
 
+function collapsePressItemsAfterParentScroll(iframeViewportTop, parentViewportHeight) {
+  const pressSection = document.querySelector(".press-section");
+
+  if (!pressSection || !Number.isFinite(iframeViewportTop) || !Number.isFinite(parentViewportHeight)) {
+    return;
+  }
+
+  const sectionBottom = pressSection.offsetTop + pressSection.offsetHeight;
+  if (iframeViewportTop > sectionBottom - Math.min(parentViewportHeight * 0.25, 180)) {
+    collapseOpenPressItems();
+  }
+}
+
 function setupPressAutoCollapse() {
   const pressSection = document.querySelector(".press-section");
 
@@ -183,6 +196,50 @@ function setupPressAutoCollapse() {
     },
     { passive: true },
   );
+
+  window.addEventListener(
+    "wheel",
+    (event) => {
+      if (event.deltaY <= 0 || event.target.closest(".press-card-event")) {
+        return;
+      }
+
+      collapseOpenPressItems();
+    },
+    { passive: true },
+  );
+
+  let touchStartY = null;
+  window.addEventListener(
+    "touchstart",
+    (event) => {
+      touchStartY = event.touches[0]?.clientY ?? null;
+    },
+    { passive: true },
+  );
+
+  window.addEventListener(
+    "touchmove",
+    (event) => {
+      if (touchStartY === null || event.target.closest(".press-card-event")) {
+        return;
+      }
+
+      const currentY = event.touches[0]?.clientY ?? touchStartY;
+      if (touchStartY - currentY > 18) {
+        collapseOpenPressItems();
+      }
+    },
+    { passive: true },
+  );
+
+  window.addEventListener("message", (event) => {
+    if (!event.data || event.data.source !== "ciq-wix-parent" || event.data.type !== "viewport") {
+      return;
+    }
+
+    collapsePressItemsAfterParentScroll(event.data.iframeViewportTop, event.data.parentViewportHeight);
+  });
 }
 
 window.addEventListener("scroll", handleScroll, { passive: true });
