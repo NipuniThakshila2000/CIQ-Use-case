@@ -161,8 +161,16 @@ function collapsePressItemsAfterParentScroll(iframeViewportTop, parentViewportHe
     return;
   }
 
+  const nextContent = document.querySelector(".press-section + .section-divider + .image-story");
+  const viewportBottom = iframeViewportTop + parentViewportHeight;
+
+  if (nextContent && viewportBottom >= nextContent.offsetTop + 40) {
+    collapseOpenPressItems();
+    return;
+  }
+
   const sectionBottom = pressSection.offsetTop + pressSection.offsetHeight;
-  if (iframeViewportTop > sectionBottom - Math.min(parentViewportHeight * 0.25, 180)) {
+  if (iframeViewportTop > sectionBottom - 120) {
     collapseOpenPressItems();
   }
 }
