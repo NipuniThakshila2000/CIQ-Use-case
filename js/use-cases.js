@@ -117,15 +117,40 @@ function setupLazyVideos() {
   lazyVideos.forEach((video) => videoObserver.observe(video));
 }
 
+function setupPressReadMore() {
+  const lessButtons = document.querySelectorAll(".press-less");
+
+  lessButtons.forEach((button) => {
+    if (button.dataset.pressLessBound === "true") {
+      return;
+    }
+
+    button.dataset.pressLessBound = "true";
+    button.addEventListener("click", () => {
+      const details = button.closest("details");
+
+      if (!details) {
+        return;
+      }
+
+      details.open = false;
+      details.scrollIntoView({ behavior: "smooth", block: "center" });
+      postIframeHeight();
+    });
+  });
+}
+
 window.addEventListener("scroll", handleScroll, { passive: true });
 window.addEventListener("load", () => {
   handleScroll();
   setupAnchorLinks();
   setupLazyVideos();
+  setupPressReadMore();
 });
 handleScroll();
 setupAnchorLinks();
 setupLazyVideos();
+setupPressReadMore();
 
 function getDocumentHeight() {
   return Math.ceil(
