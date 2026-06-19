@@ -140,17 +140,64 @@ function setupPressReadMore() {
   });
 }
 
+function collapseOpenPressItems() {
+  const openItems = document.querySelectorAll(".press-more[open]");
+
+  if (!openItems.length) {
+    return;
+  }
+
+  openItems.forEach((item) => {
+    item.open = false;
+  });
+
+  postIframeHeight();
+}
+
+function setupPressAutoCollapse() {
+  const pressSection = document.querySelector(".press-section");
+
+  if (!pressSection || pressSection.dataset.autoCollapseBound === "true") {
+    return;
+  }
+
+  pressSection.dataset.autoCollapseBound = "true";
+
+  let isTicking = false;
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (isTicking) {
+        return;
+      }
+
+      isTicking = true;
+      window.requestAnimationFrame(() => {
+        isTicking = false;
+
+        const bounds = pressSection.getBoundingClientRect();
+        if (bounds.bottom <= 120) {
+          collapseOpenPressItems();
+        }
+      });
+    },
+    { passive: true },
+  );
+}
+
 window.addEventListener("scroll", handleScroll, { passive: true });
 window.addEventListener("load", () => {
   handleScroll();
   setupAnchorLinks();
   setupLazyVideos();
   setupPressReadMore();
+  setupPressAutoCollapse();
 });
 handleScroll();
 setupAnchorLinks();
 setupLazyVideos();
 setupPressReadMore();
+setupPressAutoCollapse();
 
 function getDocumentHeight() {
   return Math.ceil(
