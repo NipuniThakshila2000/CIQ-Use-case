@@ -162,9 +162,8 @@ function collapsePressItemsAfterParentScroll(iframeViewportTop, parentViewportHe
   }
 
   const nextContent = document.querySelector(".press-section + .section-divider + .image-story");
-  const viewportBottom = iframeViewportTop + parentViewportHeight;
 
-  if (nextContent && viewportBottom >= nextContent.offsetTop + 40) {
+  if (nextContent && iframeViewportTop >= nextContent.offsetTop - 120) {
     collapseOpenPressItems();
     return;
   }
