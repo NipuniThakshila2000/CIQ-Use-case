@@ -445,6 +445,12 @@ h2 {
   box-shadow: 0 16px 42px rgba(41, 45, 203, 0.32);
 }
 
+.press-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
 .press-more {
   max-width: 670px;
 }
