@@ -151,15 +151,42 @@ function setupPressReadMore() {
   });
 }
 
+function setupLogoMarquee() {
+  const track = document.querySelector(".logo-track");
+
+  if (
+    !track ||
+    track.dataset.marqueeReady === "true" ||
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  ) {
+    return;
+  }
+
+  const logos = [...track.children];
+  const cloneSet = document.createDocumentFragment();
+
+  logos.forEach((logo) => {
+    const clone = logo.cloneNode(true);
+    clone.setAttribute("aria-hidden", "true");
+    clone.tabIndex = -1;
+    cloneSet.appendChild(clone);
+  });
+
+  track.appendChild(cloneSet);
+  track.dataset.marqueeReady = "true";
+}
+
 window.addEventListener("scroll", handleScroll, { passive: true });
 window.addEventListener("load", () => {
   handleScroll();
   setupAnchorLinks();
+  setupLogoMarquee();
   setupLazyVideos();
   setupPressReadMore();
 });
 handleScroll();
 setupAnchorLinks();
+setupLogoMarquee();
 setupLazyVideos();
 setupPressReadMore();
 
