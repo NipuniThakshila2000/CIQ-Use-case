@@ -451,6 +451,14 @@ h2 {
   width: 220px;
 }
 
+.logo-link-derana {
+  padding: 5px;
+}
+
+.logo-link.logo-link-derana img {
+  max-height: 76px;
+}
+
 .logo-link:hover {
   transform: translateY(-3px);
   border-color: rgba(41, 45, 203, 0.32);
@@ -983,6 +991,14 @@ h2 {
 
   .logo-link-wide {
     width: 178px;
+  }
+
+  .logo-link-derana {
+    padding: 4px;
+  }
+
+  .logo-link.logo-link-derana img {
+    max-height: 62px;
   }
 
   .logo-link img {
