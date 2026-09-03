@@ -901,8 +901,7 @@ h2 {
   .split,
   .healthcare-detail,
   .partnership,
-  .press-card,
-  .policy-foresight {
+  .press-card {
     grid-template-columns: 1fr;
   }
 
@@ -986,8 +985,7 @@ h2 {
   .feature,
   .partnership,
   .final-cta,
-  .press-card,
-  .policy-foresight {
+  .press-card {
     padding: 24px;
     border-radius: 24px;
   }
@@ -1031,6 +1029,10 @@ h2 {
   .press-content p {
     font-size: 0.95rem;
     line-height: 1.6;
+  }
+
+  .policy-video video {
+    aspect-ratio: 16 / 10;
   }
 
   .actions {
