@@ -567,6 +567,10 @@ h2 {
   color: var(--brand-dark);
 }
 
+.policy-more-toggle[hidden] {
+  display: none;
+}
+
 .policy-more-content {
   display: grid;
   gap: 16px;
