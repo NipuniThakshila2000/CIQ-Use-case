@@ -528,6 +528,21 @@ h2 {
   padding-bottom: 34px;
 }
 
+.policy-description {
+  display: grid;
+  max-width: 940px;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.policy-description p {
+  margin: 0;
+  color: var(--stone);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.68;
+}
+
 .policy-video {
   overflow: hidden;
   border: 1px solid var(--line);
