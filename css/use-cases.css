@@ -531,7 +531,7 @@ h2 {
 .policy-description {
   display: grid;
   max-width: 940px;
-  gap: 16px;
+  gap: 10px;
   margin-bottom: 30px;
 }
 
@@ -541,6 +541,39 @@ h2 {
   font-size: 1rem;
   font-weight: 600;
   line-height: 1.68;
+}
+
+.policy-more-toggle,
+.policy-less {
+  display: inline;
+  margin: 0 0 0 6px;
+  padding: 0;
+  border: 0;
+  color: var(--brand);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  background: transparent;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.policy-more-toggle:hover,
+.policy-less:hover {
+  color: var(--brand-dark);
+}
+
+.policy-more-content {
+  display: grid;
+  gap: 16px;
+}
+
+.policy-more-content[hidden] {
+  display: none;
 }
 
 .policy-video {
