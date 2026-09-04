@@ -151,32 +151,6 @@ function setupPressReadMore() {
   });
 }
 
-function setupPolicyReadMore() {
-  const moreButton = document.querySelector(".policy-more-toggle");
-  const lessButton = document.querySelector(".policy-less");
-  const moreContent = document.querySelector("#policy-more-content");
-
-  if (!moreButton || !lessButton || !moreContent || moreButton.dataset.policyMoreBound === "true") {
-    return;
-  }
-
-  moreButton.dataset.policyMoreBound = "true";
-
-  moreButton.addEventListener("click", () => {
-    moreContent.hidden = false;
-    moreButton.hidden = true;
-    moreButton.setAttribute("aria-expanded", "true");
-    window.requestAnimationFrame(postIframeHeight);
-  });
-
-  lessButton.addEventListener("click", () => {
-    moreContent.hidden = true;
-    moreButton.hidden = false;
-    moreButton.setAttribute("aria-expanded", "false");
-    window.requestAnimationFrame(postIframeHeight);
-  });
-}
-
 function setupLogoMarquee() {
   const track = document.querySelector(".logo-track");
 
@@ -209,14 +183,12 @@ window.addEventListener("load", () => {
   setupLogoMarquee();
   setupLazyVideos();
   setupPressReadMore();
-  setupPolicyReadMore();
 });
 handleScroll();
 setupAnchorLinks();
 setupLogoMarquee();
 setupLazyVideos();
 setupPressReadMore();
-setupPolicyReadMore();
 
 function getDocumentHeight() {
   return Math.ceil(

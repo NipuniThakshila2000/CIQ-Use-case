@@ -523,87 +523,6 @@ h2 {
   aspect-ratio: 16 / 9;
 }
 
-.policy-foresight {
-  padding-top: 34px;
-  padding-bottom: 34px;
-}
-
-.policy-description {
-  display: grid;
-  max-width: 940px;
-  gap: 10px;
-  margin-bottom: 30px;
-}
-
-.policy-description p {
-  margin: 0;
-  color: var(--stone);
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 1.68;
-}
-
-.policy-more-toggle,
-.policy-less {
-  display: inline;
-  margin: 0 0 0 6px;
-  padding: 0;
-  border: 0;
-  color: var(--brand);
-  font: inherit;
-  font-size: 0.8rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-  background: transparent;
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 3px;
-}
-
-.policy-more-toggle:hover,
-.policy-less:hover {
-  color: var(--brand-dark);
-}
-
-.policy-more-toggle[hidden] {
-  display: none;
-}
-
-.policy-more-content {
-  display: grid;
-  gap: 16px;
-}
-
-.policy-more-content .policy-less {
-  display: inline-block;
-  width: fit-content;
-  margin-left: 0;
-  justify-self: start;
-  text-align: left;
-}
-
-.policy-more-content[hidden] {
-  display: none;
-}
-
-.policy-video {
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 30px;
-  background: #000000;
-  box-shadow: var(--shadow);
-}
-
-.policy-video video {
-  display: block;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: contain;
-  background: #000000;
-}
-
 .press-card-event .press-media img {
   height: 100%;
   min-height: 420px;
@@ -1091,10 +1010,6 @@ h2 {
     line-height: 1.6;
   }
 
-  .policy-video video {
-    aspect-ratio: 16 / 10;
-  }
-
   .actions {
     flex-direction: column;
   }
@@ -1126,8 +1041,6 @@ h2 {
   .image-card,
   .video-frame,
   .press-card,
-  .policy-foresight,
-  .policy-video,
   .press-media {
     border-radius: 18px;
   }
