@@ -138,6 +138,30 @@ function setupDeferredVideos() {
   loadVideosInViewport();
 }
 
+function setupManualVideos() {
+  document.querySelectorAll("video.manual-video").forEach((video) => {
+    if (video.dataset.manualReady === "true") {
+      return;
+    }
+
+    video.dataset.manualReady = "true";
+    video.addEventListener(
+      "pointerdown",
+      () => {
+        loadVideo(video);
+      },
+      { once: true },
+    );
+    video.addEventListener(
+      "play",
+      () => {
+        loadVideo(video);
+      },
+      { once: true },
+    );
+  });
+}
+
 function setupPressReadMore() {
   const moreItems = document.querySelectorAll(".press-more");
   const lessButtons = document.querySelectorAll(".press-less");
@@ -201,14 +225,15 @@ window.addEventListener("scroll", handleScroll, { passive: true });
 window.addEventListener("load", () => {
   handleScroll();
   setupAnchorLinks();
-  setupLogoMarquee();
+  window.requestIdleCallback?.(setupLogoMarquee) ?? window.setTimeout(setupLogoMarquee, 300);
   setupDeferredVideos();
+  setupManualVideos();
   setupPressReadMore();
 });
 handleScroll();
 setupAnchorLinks();
-setupLogoMarquee();
 setupDeferredVideos();
+setupManualVideos();
 setupPressReadMore();
 
 function getDocumentHeight() {

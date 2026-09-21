@@ -46,6 +46,11 @@ main {
   padding: 92px 0;
 }
 
+.section:not(.hero) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
+}
+
 .section:last-child {
   padding-bottom: 0;
 }
