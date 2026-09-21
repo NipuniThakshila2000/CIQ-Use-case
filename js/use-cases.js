@@ -92,6 +92,12 @@ function getVideoTopInParent(video, viewportState) {
 }
 
 function loadVideosInViewport() {
+  const isEmbedded = window.parent !== window;
+
+  if (isEmbedded && !window.ciqParentViewport) {
+    return;
+  }
+
   const viewportState = window.ciqParentViewport || {
     iframeViewportTop: window.scrollY,
     parentViewportHeight: window.innerHeight,
@@ -135,7 +141,9 @@ function setupDeferredVideos() {
     }
   });
 
-  loadVideosInViewport();
+  if (window.parent === window) {
+    loadVideosInViewport();
+  }
 }
 
 function setupManualVideos() {
@@ -293,9 +301,11 @@ window.addEventListener("message", (event) => {
   loadVideosInViewport();
 });
 
-if ("ResizeObserver" in window) {
-  const resizeObserver = new ResizeObserver(postIframeHeight);
-  resizeObserver.observe(document.body);
-}
+window.setTimeout(() => {
+  if ("ResizeObserver" in window) {
+    const resizeObserver = new ResizeObserver(postIframeHeight);
+    resizeObserver.observe(document.body);
+  }
+}, 250);
 
 postIframeHeight();
