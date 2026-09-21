@@ -77,12 +77,40 @@ function loadVideo(video) {
   });
 
   video.dataset.loaded = "true";
+  video.closest(".deferred-video")?.classList.add("is-loaded");
   video.load();
 
   const playPromise = video.play();
   if (playPromise) {
     playPromise.catch(() => {});
   }
+}
+
+function getVideoTopInParent(video, viewportState) {
+  const bounds = video.getBoundingClientRect();
+  return bounds.top - viewportState.iframeViewportTop;
+}
+
+function loadVideosInViewport() {
+  const viewportState = window.ciqParentViewport || {
+    iframeViewportTop: window.scrollY,
+    parentViewportHeight: window.innerHeight,
+  };
+  const preloadMargin = 260;
+
+  document.querySelectorAll("video.lazy-video").forEach((video) => {
+    if (video.dataset.loaded === "true") {
+      return;
+    }
+
+    const top = getVideoTopInParent(video, viewportState);
+    const bottom = top + video.getBoundingClientRect().height;
+    const isNearViewport = bottom >= -preloadMargin && top <= viewportState.parentViewportHeight + preloadMargin;
+
+    if (isNearViewport) {
+      loadVideo(video);
+    }
+  });
 }
 
 function setupDeferredVideos() {
@@ -98,26 +126,16 @@ function setupDeferredVideos() {
     }
 
     const frame = video.parentElement;
-    const button = document.createElement("button");
-
     video.dataset.deferredReady = "true";
-    video.removeAttribute("autoplay");
+    video.setAttribute("autoplay", "");
+    video.muted = true;
 
     if (frame) {
       frame.classList.add("deferred-video");
     }
-
-    button.className = "video-load-button";
-    button.type = "button";
-    button.textContent = "Play Video";
-    button.addEventListener("click", () => {
-      loadVideo(video);
-      frame?.classList.add("is-loaded");
-    });
-
-    frame?.appendChild(button);
-
   });
+
+  loadVideosInViewport();
 }
 
 function setupPressReadMore() {
@@ -222,6 +240,20 @@ function postIframeHeight() {
 
 window.addEventListener("load", postIframeHeight);
 window.addEventListener("resize", postIframeHeight);
+window.addEventListener("scroll", loadVideosInViewport, { passive: true });
+
+window.addEventListener("message", (event) => {
+  if (!event.data || event.data.source !== "ciq-wix-parent" || event.data.type !== "viewport") {
+    return;
+  }
+
+  window.ciqParentViewport = {
+    iframeViewportTop: Number(event.data.iframeViewportTop) || 0,
+    parentViewportHeight: Number(event.data.parentViewportHeight) || window.innerHeight,
+  };
+
+  loadVideosInViewport();
+});
 
 if ("ResizeObserver" in window) {
   const resizeObserver = new ResizeObserver(postIframeHeight);

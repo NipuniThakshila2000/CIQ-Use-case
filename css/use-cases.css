@@ -364,39 +364,6 @@ h2 {
     linear-gradient(135deg, #111336, #292dcb);
 }
 
-.deferred-video video {
-  opacity: 0;
-  transition: opacity 220ms ease;
-}
-
-.deferred-video.is-loaded video {
-  opacity: 1;
-}
-
-.video-load-button {
-  position: absolute;
-  inset: 50% auto auto 50%;
-  z-index: 3;
-  min-height: 46px;
-  padding: 0 20px;
-  border: 1px solid rgba(255, 255, 255, 0.32);
-  border-radius: 999px;
-  color: #ffffff;
-  font: inherit;
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-  background: rgba(17, 19, 54, 0.72);
-  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.24);
-  transform: translate(-50%, -50%);
-}
-
-.deferred-video.is-loaded .video-load-button {
-  display: none;
-}
-
 .press-section {
   width: min(1260px, calc(100% - 40px));
   display: grid;
