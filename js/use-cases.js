@@ -117,13 +117,6 @@ function setupDeferredVideos() {
 
     frame?.appendChild(button);
 
-    const autoLoadDelay = Number(video.dataset.autoLoadDelay || 0);
-    if (autoLoadDelay > 0) {
-      window.setTimeout(() => {
-        loadVideo(video);
-        frame?.classList.add("is-loaded");
-      }, autoLoadDelay);
-    }
   });
 }
 
