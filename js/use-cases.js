@@ -85,36 +85,46 @@ function loadVideo(video) {
   }
 }
 
-function setupLazyVideos() {
+function setupDeferredVideos() {
   const lazyVideos = [...document.querySelectorAll("video.lazy-video")];
 
   if (!lazyVideos.length) {
     return;
   }
 
-  if (!("IntersectionObserver" in window)) {
-    lazyVideos.forEach(loadVideo);
-    return;
-  }
+  lazyVideos.forEach((video) => {
+    if (video.dataset.deferredReady === "true") {
+      return;
+    }
 
-  const videoObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) {
-          return;
-        }
+    const frame = video.parentElement;
+    const button = document.createElement("button");
 
-        loadVideo(entry.target);
-        videoObserver.unobserve(entry.target);
-      });
-    },
-    {
-      rootMargin: "120px 0px",
-      threshold: 0.01,
-    },
-  );
+    video.dataset.deferredReady = "true";
+    video.removeAttribute("autoplay");
 
-  lazyVideos.forEach((video) => videoObserver.observe(video));
+    if (frame) {
+      frame.classList.add("deferred-video");
+    }
+
+    button.className = "video-load-button";
+    button.type = "button";
+    button.textContent = "Play Video";
+    button.addEventListener("click", () => {
+      loadVideo(video);
+      frame?.classList.add("is-loaded");
+    });
+
+    frame?.appendChild(button);
+
+    const autoLoadDelay = Number(video.dataset.autoLoadDelay || 0);
+    if (autoLoadDelay > 0) {
+      window.setTimeout(() => {
+        loadVideo(video);
+        frame?.classList.add("is-loaded");
+      }, autoLoadDelay);
+    }
+  });
 }
 
 function setupPressReadMore() {
@@ -181,13 +191,13 @@ window.addEventListener("load", () => {
   handleScroll();
   setupAnchorLinks();
   setupLogoMarquee();
-  setupLazyVideos();
+  setupDeferredVideos();
   setupPressReadMore();
 });
 handleScroll();
 setupAnchorLinks();
 setupLogoMarquee();
-setupLazyVideos();
+setupDeferredVideos();
 setupPressReadMore();
 
 function getDocumentHeight() {
