@@ -248,7 +248,9 @@ function getDocumentHeight() {
   );
 }
 
-function postIframeHeight() {
+let iframeHeightFrame = null;
+
+function postIframeHeightNow() {
   if (window.parent === window) {
     return;
   }
@@ -261,6 +263,17 @@ function postIframeHeight() {
     },
     "*",
   );
+}
+
+function postIframeHeight() {
+  if (iframeHeightFrame) {
+    return;
+  }
+
+  iframeHeightFrame = window.requestAnimationFrame(() => {
+    iframeHeightFrame = null;
+    postIframeHeightNow();
+  });
 }
 
 window.addEventListener("load", postIframeHeight);
