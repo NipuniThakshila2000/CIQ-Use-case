@@ -109,7 +109,7 @@ function setupLazyVideos() {
       });
     },
     {
-      rootMargin: "600px 0px",
+      rootMargin: "120px 0px",
       threshold: 0.01,
     },
   );
